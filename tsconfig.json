@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "ES2020",
+		"module":"esnext",
+		"sourceMap": false,
+		"experimentalDecorators": true,
+		"strict": true,
+		"newLine": "LF",
+		"watch": true
+	},
+	"exclude":[
+		"build",
+		"bower_components",
+		"node_modules"
+	]
+
+}

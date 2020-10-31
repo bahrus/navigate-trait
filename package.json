@@ -5,14 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node node_modules/xtal-test/serve.js"
+    "serve": "node node_modules/xtal-test/serve.js",
+    "start": "web-dev-server --app-index demo/dev.html --node-resolve --watch --open"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bahrus/navigate-trait.git"
   },
+  "dependencies": {
+    "xtal-decor": "0.0.16",
+    "xtal-element": "0.0.312"
+  },
   "devDependencies": {
-    "xtal-test": "0.0.48"
+    "xtal-test": "0.0.48",
+    "@web/dev-server": "0.0.16"
   },
   "author": "",
   "license": "MIT",

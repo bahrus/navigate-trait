@@ -7,6 +7,11 @@ export class NavigateATrait extends XtalDecor {
             'click': ({ self }, e) => {
                 console.log(e);
                 e.preventDefault();
+                self.dispatchEvent(new CustomEvent('route-change', {
+                    detail: {
+                        link: this
+                    }
+                }));
             }
         };
         this.init = (h) => {

@@ -7,16 +7,16 @@ Enhance the hyperlink and nav native elements to support local client-side routi
 Syntax
 
 ```html
-<navigate-trait upgrade=a if-wants-to-be="a-navigation-link"></navigate-trait>
+<navigate-a-trait upgrade=a if-wants-to-be="a-navigation-link"></navigate-a-trait>
 <navigate-trait upgrade=nav if-wants-to-be="a-client-side-router"></navigate-trait>
 
 ...
 
 <nav be-a-client-side-router>
-    <a be-a-navigation-link data-href="myAccounts/14394402/statements/201904?page=1" slot="link">
+    <a be-a-navigation-link href="myAccounts/14394402/statements/201904?page=1" slot="link">
         Statement for April 2019
     </a>
-    <a be-a-navigation-link data-href="myAccounts/398821400/transactions?from=20201001&to=20201119" slot="link">
+    <a be-a-navigation-link href="myAccounts/398821400/transactions?from=20201001&to=20201119" slot="link">
         Transactions for 10/1/2020 - 11/19/2020
     </a>
 </nav>

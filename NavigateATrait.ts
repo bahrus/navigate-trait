@@ -14,10 +14,11 @@ export class NavigateATrait extends XtalDecor {
             }));
         }
     };
-    init = (h: HTMLElement) =>{
+    init = (h: HTMLElement) => {
 
     };// as PropAction<HTMLElement>;
     actions = [];
+    upgrade = 'a';
 
 }
 define(NavigateATrait);

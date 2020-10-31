@@ -17,6 +17,7 @@ export class NavigateATrait extends XtalDecor {
         this.init = (h) => {
         }; // as PropAction<HTMLElement>;
         this.actions = [];
+        this.upgrade = 'a';
     }
 }
 NavigateATrait.is = 'navigate-a-trait';

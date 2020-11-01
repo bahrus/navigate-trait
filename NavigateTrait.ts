@@ -9,8 +9,9 @@ export class NavigateTrait extends XtalDecor {
     upgrade = 'nav';
 
     capture = {
-        [route_change]: ({}, e: Event) => {
+        [route_change]: ({self}: XtalDecor, e: Event) => {
             console.log(e);
+            console.log(self.id);
         }
     }
 

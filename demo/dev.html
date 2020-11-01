@@ -11,10 +11,11 @@
             }
         }
     </style>
-    @media (prefers-color-scheme: dark) {
 </head>
 <body>
     <navigate-a-trait if-wants-to-be="a-navigation-link"></navigate-a-trait>
+    <navigate-trait if-wants-to-be="a-client-side-router"></navigate-trait>
+
     <nav id=test be-a-client-side-router>
         <a  be-a-navigation-link href="myAccounts/14394402/statements/201904?page=1" slot="link">
             Statement for April 2019
@@ -25,11 +26,12 @@
     </nav>
     <script type=module>
         import('../NavigateATrait.js');
+        import('../NavigateTrait.js');
     </script>
-    <script>
+    <!-- <script>
         test.addEventListener('route-change', e => {
             console.log(e);
         }, true);
-    </script>
+    </script> -->
 </body>
 </html>

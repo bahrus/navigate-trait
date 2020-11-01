@@ -13,7 +13,7 @@
     "url": "git+https://github.com/bahrus/navigate-trait.git"
   },
   "dependencies": {
-    "xtal-decor": "0.0.16",
+    "xtal-decor": "0.0.19",
     "xtal-element": "0.0.312"
   },
   "devDependencies": {

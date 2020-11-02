@@ -13,8 +13,8 @@
     </style>
 </head>
 <body>
-    <navigate-a-trait if-wants-to-be="a-navigation-link"></navigate-a-trait>
-    <navigate-trait if-wants-to-be="a-client-side-router"></navigate-trait>
+    <un-curl></un-curl>
+    <navigate-trait></navigate-trait>
 
     <nav id=test be-a-client-side-router>
         <a  be-a-navigation-link href="myAccounts/14394402/statements/201904?page=1" slot="link">
@@ -25,8 +25,8 @@
         </a>
     </nav>
     <script type=module>
-        import('../NavigateATrait.js');
-        import('../NavigateTrait.js');
+        import('../un-curl.js');
+        import('../navigate-trait.js');
     </script>
     <!-- <script>
         test.addEventListener('route-change', e => {

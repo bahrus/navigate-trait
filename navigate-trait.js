@@ -1,6 +1,6 @@
 import { XtalDecor } from 'xtal-decor/xtal-decor.js';
 import { define } from 'xtal-element/XtalElement.js';
-import { route_change } from './NavigateATrait.js';
+import { route_change } from './un-curl.js';
 export class NavigateTrait extends XtalDecor {
     constructor() {
         super(...arguments);
@@ -13,6 +13,7 @@ export class NavigateTrait extends XtalDecor {
         };
         this.init = (h) => { };
         this.actions = [];
+        this.ifWantsToBe = 'a-client-side-router';
     }
 }
 NavigateTrait.is = 'navigate-trait';

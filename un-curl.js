@@ -1,7 +1,7 @@
 import { XtalDecor } from 'xtal-decor/xtal-decor.js';
 import { define } from 'xtal-element/XtalElement.js';
 export const route_change = 'route-change';
-export class NavigateATrait extends XtalDecor {
+export class UnCurl extends XtalDecor {
     constructor() {
         super(...arguments);
         this.on = {
@@ -17,7 +17,8 @@ export class NavigateATrait extends XtalDecor {
         this.init = (h) => { };
         this.actions = [];
         this.upgrade = 'a';
+        this.ifWantsToBe = 'a-navigation-link';
     }
 }
-NavigateATrait.is = 'navigate-a-trait';
-define(NavigateATrait);
+UnCurl.is = 'un-curl';
+define(UnCurl);

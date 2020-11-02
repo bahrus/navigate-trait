@@ -1,8 +1,8 @@
 import {XtalDecor, PropAction} from 'xtal-decor/xtal-decor.js';
 import {define} from 'xtal-element/XtalElement.js';
 export const route_change = 'route-change';
-export class NavigateATrait extends XtalDecor {
-    static is='navigate-a-trait';
+export class UnCurl extends XtalDecor {
+    static is='un-curl';
     on = {
         click:({self}: any, e: Event) =>{
             e.preventDefault();
@@ -16,6 +16,6 @@ export class NavigateATrait extends XtalDecor {
     init = (h: HTMLElement) => {};
     actions = [];
     upgrade = 'a';
-
+    ifWantsToBe = 'a-navigation-link';
 }
-define(NavigateATrait);
+define(UnCurl);

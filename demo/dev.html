@@ -19,27 +19,47 @@
         <script nomodule="ish">
             const accountId = Symbol('accountId');
             const statementId = Symbol('statementId');
-            const pageNo = Symbol('pageNo');
-            const from = Symbol('from');
-            const to = Symbol('to');
+            const statementPageNo = Symbol('statementPageNo');
+            const transactionsFrom = Symbol('transactionsFrom');
+            const transactionsTo = Symbol('transactionsTo');
             const routeMap = {
                 myAccounts:{
                     '*': [accountId, Number, x => x % 11 === 0], //third element is a test, if fails, no match
                     statements:{
                         '*': [statementId, String],
                         queryString:{
-                            page: [pageNo, Number]
+                            page: [statementPageNo, Number]
                         }
                     },
                     transactions:{
                         queryString:{
-                            from: [from, Date],
-                            to: [to, Date]
+                            from: [transactionsFrom, Date],
+                            to: [transactionsTo, Date]
                         }
                     }
                 }
             }
-            selfish.parentElement.routeMap = routeMap;
+            const historyUpdate = {
+                myContext:{
+                    mySubContext:{
+                        accountInfo:{
+                            id: [accountId],
+                            statementInfo:{
+                                id: [statementId]
+                            },
+                            statementView:{
+                                pageNo: [statementPageNo]
+                            }
+                        },
+                        transactionsView:{
+                            from: [transactionsFrom],
+                            to: [transactionsTo]
+                        }
+                    }
+                    
+                }
+            }
+            Object.assign(selfish.parentElement, {routeMap, historyUpdate});
         </script>
     </navigate-trait>
 

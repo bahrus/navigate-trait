@@ -24,19 +24,22 @@
             const transactionsTo = Symbol('transactionsTo');
             const routeMap = {
                 myAccounts:{
-                    '*': [accountId, Number, x => x % 11 === 0], //third element is a test, if fails, no match
-                    statements:{
-                        '*': [statementId, String],
-                        queryString:{
-                            page: [statementPageNo, Number]
+                    '*': [accountId, parseInt, x => x % 11 === 0, {
+                        statements:{
+                            '*' : [statementId,,,{
+                                '?': {
+                                    page: [statementPageNo, parseInt]
+                                }
+                            }]
+                        },
+                        transactions:{
+                            '?':{
+                                from: [transactionsFrom, parseDate],
+                                to: [transactionsTo, parseDate]
+                            }
                         }
-                    },
-                    transactions:{
-                        queryString:{
-                            from: [transactionsFrom, Date],
-                            to: [transactionsTo, Date]
-                        }
-                    }
+                    }],
+
                 }
             }
             const historyUpdate = {

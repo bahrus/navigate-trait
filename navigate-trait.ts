@@ -9,6 +9,7 @@ function parse(link: HTMLAnchorElement, self: NavigateTrait){
 
     const splitHref = link.href.split('?')[0].split('/');
     const ctx: RouteContext = {
+        link: link,
         pinnedData: {}
     };
     for(const key in self.routeMappingRules){
@@ -62,7 +63,8 @@ function match(splitHref: string[], mappingRules: RouteMappingRules, ctx: RouteC
 }
 
 function matchQueryString(mappingRules: RouteMappingRules, ctx: RouteContext){
-    const queryString = location.search;
+    const queryString = ctx.link.href.split('?')[1];
+    if(queryString === undefined) return;
     const params = new URLSearchParams(queryString);
     for(const key in mappingRules){
         let val = params.get(key);

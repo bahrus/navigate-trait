@@ -16,10 +16,11 @@ export class DevTest extends NavigateTrait{
             '*': [accountId, parseInt, (x: number) => x % 11 === 0, {
                 statements:{
                     '*' : [statementId,,,{
-                        '?': {
-                            page: [statementPageNo, parseInt]
-                        }
-                    }]
+                        
+                    }],
+                    '?': {
+                        page: [statementPageNo, parseInt]
+                    }
                 },
                 transactions:{
                     '?':{

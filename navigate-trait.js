@@ -7,6 +7,7 @@ function parse(link, self) {
         return;
     const splitHref = link.href.split('?')[0].split('/');
     const ctx = {
+        link: link,
         pinnedData: {}
     };
     for (const key in self.routeMappingRules) {
@@ -58,7 +59,9 @@ function match(splitHref, mappingRules, ctx) {
     }
 }
 function matchQueryString(mappingRules, ctx) {
-    const queryString = location.search;
+    const queryString = ctx.link.href.split('?')[1];
+    if (queryString === undefined)
+        return;
     const params = new URLSearchParams(queryString);
     for (const key in mappingRules) {
         let val = params.get(key);

@@ -20,7 +20,7 @@ function parse(link, self) {
 function match(splitHref, mappingRules, ctx) {
     for (const key in mappingRules) {
         switch (key) {
-            case '*':
+            case '*': {
                 const rule = mappingRules[key];
                 const sym = rule[0];
                 let val = splitHref[0];
@@ -41,6 +41,40 @@ function match(splitHref, mappingRules, ctx) {
                     match(splitHref.slice(1), mappingRules, ctx);
                 }
                 break;
+            }
+            case '?':
+                {
+                    matchQueryString(mappingRules['?'], ctx);
+                }
+                break;
+            default:
+                if (key === splitHref[0]) {
+                    const rules = mappingRules[key];
+                    if (splitHref.length > 1) {
+                        match(splitHref.slice(1), rules, ctx);
+                    }
+                }
+        }
+    }
+}
+function matchQueryString(mappingRules, ctx) {
+    const queryString = location.search;
+    const params = new URLSearchParams(queryString);
+    for (const key in mappingRules) {
+        let val = params.get(key);
+        if (val !== null) {
+            const rule = mappingRules[key];
+            const sym = rule[0];
+            const dataConverter = rule[1];
+            if (dataConverter !== undefined) {
+                val = dataConverter(val);
+            }
+            const test = rule[2];
+            if (test !== undefined) {
+                if (!test(val))
+                    continue;
+            }
+            ctx.pinnedData[sym] = val;
         }
     }
 }

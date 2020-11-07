@@ -21,27 +21,62 @@ function parse(link: HTMLAnchorElement, self: NavigateTrait){
 
 function match(splitHref: string[], mappingRules: RouteMappingRules, ctx: RouteContext){
     for(const key in mappingRules){
+        
         switch(key){
-            case '*':
-                const rule = mappingRules[key] as RouteMappingRule;
-                const sym = rule[0];
-                let val = splitHref[0];
-                if(sym !== undefined && val !== undefined){
-                    const dataConverter = rule[1];
-                    if(dataConverter !== undefined){
-                        val = dataConverter(val);
+            case '*':{
+                    const rule = mappingRules[key] as RouteMappingRule;
+                    const sym = rule[0];
+                    let val = splitHref[0];
+                    if(sym !== undefined && val !== undefined){
+                        const dataConverter = rule[1];
+                        if(dataConverter !== undefined){
+                            val = dataConverter(val);
+                        }
+                        const test = rule[2];
+                        if(test !== undefined){
+                            if(test(val) !== true) continue;
+                        }
+                        ctx.pinnedData[sym as any as string] = val;
                     }
-                    const test = rule[2];
-                    if(test !== undefined){
-                        if(test(val) !== true) continue;
+                    const subRule = rule[3];
+                    if(splitHref.length > 1){
+                        match(splitHref.slice(1), mappingRules, ctx);
                     }
-                    ctx.pinnedData[sym as any as string] = val;
+                    break;
                 }
-                const subRule = rule[3];
-                if(splitHref.length > 1){
-                    match(splitHref.slice(1), mappingRules, ctx);
+            case '?':{
+                    matchQueryString(mappingRules['?'] as RouteMappingRules, ctx);
                 }
                 break;
+            default:
+                if(key === splitHref[0]){
+                    const rules = mappingRules[key] as RouteMappingRules;
+                    if(splitHref.length > 1){
+                        match(splitHref.slice(1), rules, ctx);
+                    }
+                }
+                
+        }
+    }
+}
+
+function matchQueryString(mappingRules: RouteMappingRules, ctx: RouteContext){
+    const queryString = location.search;
+    const params = new URLSearchParams(queryString);
+    for(const key in mappingRules){
+        let val = params.get(key);
+        if(val !== null){
+            const rule = mappingRules[key] as RouteMappingRule;
+            const sym = rule[0];
+            const dataConverter = rule[1];
+            if(dataConverter !== undefined){
+                val = dataConverter(val);
+            }
+            const test = rule[2];
+            if(test !== undefined){
+                if(!test(val)) continue;
+            }
+            ctx.pinnedData[sym as any as string] = val;
         }
     }
 }

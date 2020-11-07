@@ -15,14 +15,13 @@
 <body>
     
     <navigate-trait>
-        <un-curl></un-curl>
         <script nomodule="ish">
             const accountId = Symbol('accountId');
             const statementId = Symbol('statementId');
             const statementPageNo = Symbol('statementPageNo');
             const transactionsFrom = Symbol('transactionsFrom');
             const transactionsTo = Symbol('transactionsTo');
-            const routeMap = {
+            const routeMappingRules = {
                 myAccounts:{
                     '*': [accountId, parseInt, x => x % 11 === 0, {
                         statements:{
@@ -42,7 +41,7 @@
 
                 }
             }
-            const historyUpdate = {
+            const historyStateMapping = {
                 myContext:{
                     mySubContext:{
                         accountInfo:{
@@ -62,7 +61,7 @@
                     
                 }
             }
-            Object.assign(selfish.parentElement, {routeMap, historyUpdate});
+            Object.assign(selfish.parentElement, {routeMappingRules, historyUpdateMapping});
         </script>
     </navigate-trait>
 

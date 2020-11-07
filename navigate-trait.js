@@ -5,7 +5,7 @@ import { UnCurl } from './un-curl.js';
 function parse(link, self) {
     if (self.routeMappingRules === undefined || self.historyStateMapping === undefined)
         return;
-    const splitHref = link.href.split('/');
+    const splitHref = link.href.split('?')[0].split('/');
     const ctx = {
         pinnedData: {}
     };

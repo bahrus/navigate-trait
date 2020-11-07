@@ -14,13 +14,10 @@
 </head>
 <body>
     
-    <navigate-trait>
-        <script nomodule="ish">
-            const accountId = Symbol('accountId');
-            const statementId = Symbol('statementId');
-            const statementPageNo = Symbol('statementPageNo');
-            const transactionsFrom = Symbol('transactionsFrom');
-            const transactionsTo = Symbol('transactionsTo');
+    <dev-test>
+        <!-- <script nomodule="ish">
+
+
             const routeMappingRules = {
                 myAccounts:{
                     '*': [accountId, parseInt, x => x % 11 === 0, {
@@ -35,7 +32,7 @@
                             '?':{
                                 from: [transactionsFrom, parseDate],
                                 to: [transactionsTo, parseDate]
-                            }
+                            },
                         }
                     }],
 
@@ -62,8 +59,8 @@
                 }
             }
             Object.assign(selfish.parentElement, {routeMappingRules, historyUpdateMapping});
-        </script>
-    </navigate-trait>
+        </script> -->
+    </dev-test>
 
     <nav id=test be-a-client-side-router>
         <a  be-a-navigation-link href="myAccounts/14394402/statements/201904?page=1" slot="link">
@@ -74,8 +71,8 @@
         </a>
     </nav>
     <script type=module>
-        import('../un-curl.js');
-        import('../navigate-trait.js');
+        //import('../un-curl.js');
+        import('./dev.js');
     </script>
     <!-- <script>
         test.addEventListener('route-change', e => {

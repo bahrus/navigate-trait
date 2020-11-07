@@ -38,9 +38,9 @@ function match(splitHref: string[], mappingRules: RouteMappingRules, ctx: RouteC
                         }
                         ctx.pinnedData[sym as any as string] = val;
                     }
-                    const subRule = rule[3];
+                    const subRule = rule[3] as RouteMappingRules;
                     if(splitHref.length > 1){
-                        match(splitHref.slice(1), mappingRules, ctx);
+                        match(splitHref.slice(1), subRule, ctx);
                     }
                     break;
                 }

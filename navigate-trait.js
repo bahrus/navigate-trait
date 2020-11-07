@@ -38,7 +38,7 @@ function match(splitHref, mappingRules, ctx) {
                 }
                 const subRule = rule[3];
                 if (splitHref.length > 1) {
-                    match(splitHref.slice(1), mappingRules, ctx);
+                    match(splitHref.slice(1), subRule, ctx);
                 }
                 break;
             }

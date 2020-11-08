@@ -4,14 +4,20 @@ import { route_change } from './un-curl.js';
 import { UnCurl } from './un-curl.js';
 import { mergeDeep } from 'trans-render/mergeDeep.js';
 function parseLink(link, self) {
+    const ctx = {
+        pinnedData: {},
+        state: {},
+        linkInfo: {
+            href: link.href,
+            title: link.innerText
+        }
+    };
+    parseURL(ctx, self);
+}
+function parseURL(ctx, self) {
     if (self.routeMappingRules === undefined || self.historyStateMapping === undefined)
         return;
-    const splitHref = link.href.split('?')[0].split('/');
-    const ctx = {
-        link: link,
-        pinnedData: {},
-        state: {}
-    };
+    const splitHref = ctx.linkInfo.href.split('?')[0].split('/');
     for (const key in self.routeMappingRules) {
         const iPos = splitHref.indexOf(key);
         const rules = self.routeMappingRules[key];
@@ -21,7 +27,7 @@ function parseLink(link, self) {
     }
     buildHistoryState(ctx, self.historyStateMapping, ctx.state);
     const mergedState = mergeDeep({ ...history.state }, ctx.state);
-    window.history.pushState(mergedState, link.innerText, link.href);
+    window.history.pushState(mergedState, ctx.linkInfo.title, ctx.linkInfo.href);
 }
 function buildHistoryState(ctx, hsm, state) {
     for (const key in hsm) {
@@ -77,7 +83,7 @@ function matchRoute(splitHref, mappingRules, ctx) {
     }
 }
 function matchQueryString(mappingRules, ctx) {
-    const queryString = ctx.link.href.split('?')[1];
+    const queryString = ctx.linkInfo.href.split('?')[1];
     if (queryString === undefined)
         return;
     const params = new URLSearchParams(queryString);

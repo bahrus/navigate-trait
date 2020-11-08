@@ -14,6 +14,12 @@ export type HistoryStateMappings = {[key: string]: string | symbol | HistoryStat
 
 export interface RouteContext{
     pinnedData: any;
-    link: HTMLAnchorElement;
+    //link: HTMLAnchorElement;
     state: any;
+    linkInfo: LinkInfo;
+}
+
+export interface LinkInfo{
+    href: string;
+    title: string;
 }

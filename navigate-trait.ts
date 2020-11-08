@@ -6,14 +6,21 @@ import {UnCurl} from './un-curl.js';
 import {mergeDeep} from 'trans-render/mergeDeep.js';
 
 function parseLink(link: HTMLAnchorElement, self: NavigateTrait){
-    if(self.routeMappingRules === undefined || self.historyStateMapping === undefined) return;
-
-    const splitHref = link.href.split('?')[0].split('/');
     const ctx: RouteContext = {
-        link: link,
         pinnedData: {},
-        state: {}
+        state: {},
+        linkInfo:{
+            href: link.href,
+            title: link.innerText
+        }
     };
+    parseURL(ctx, self);
+}
+
+function parseURL(ctx: RouteContext, self:NavigateTrait){
+    if(self.routeMappingRules === undefined || self.historyStateMapping === undefined) return;
+    const splitHref = ctx.linkInfo.href.split('?')[0].split('/');
+
     for(const key in self.routeMappingRules){
         const iPos = splitHref.indexOf(key);
         const rules = self.routeMappingRules[key];
@@ -23,7 +30,7 @@ function parseLink(link: HTMLAnchorElement, self: NavigateTrait){
     }
     buildHistoryState(ctx, self.historyStateMapping, ctx.state);
     const mergedState = mergeDeep({...history.state}, ctx.state);
-    window.history.pushState(mergedState, link.innerText, link.href);
+    window.history.pushState(mergedState, ctx.linkInfo.title, ctx.linkInfo.href);
 }
 
 function buildHistoryState(ctx: RouteContext, hsm: HistoryStateMappings, state: any){
@@ -82,7 +89,7 @@ function matchRoute(splitHref: string[], mappingRules: RouteMappingRules, ctx: R
 }
 
 function matchQueryString(mappingRules: RouteMappingRules, ctx: RouteContext){
-    const queryString = ctx.link.href.split('?')[1];
+    const queryString = ctx.linkInfo.href.split('?')[1];
     if(queryString === undefined) return;
     const params = new URLSearchParams(queryString);
     for(const key in mappingRules){

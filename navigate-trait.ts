@@ -110,6 +110,22 @@ function matchQueryString(mappingRules: RouteMappingRules, ctx: RouteContext){
     }
 }
 
+export const initHistoryState = ({routeMappingRules, historyStateMapping, self}: NavigateTrait) => {
+    if(routeMappingRules === undefined || historyStateMapping === undefined) return;
+    if(history.state !== null) return;
+    const ctx: RouteContext = {
+        pinnedData: {},
+        state: {},
+        linkInfo:{
+            href: location.href,
+            title: document.head.title
+        }
+    };
+    parseURL(ctx, self);
+}
+
+export const navigatePropsActions = [...propActions, initHistoryState];
+
 export class NavigateTrait extends XtalDecor {
 
     static is = 'navigate-trait';
@@ -117,6 +133,8 @@ export class NavigateTrait extends XtalDecor {
     static attributeProps : any = ({routeMappingRules, historyStateMapping}: NavigateTrait) => ({
         obj: [routeMappingRules, historyStateMapping]
     } as AttributeProps);
+
+    propActions = navigatePropsActions;
 
     upgrade = 'nav';
 

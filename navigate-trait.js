@@ -1,4 +1,4 @@
-import { XtalDecor } from 'xtal-decor/xtal-decor.js';
+import { XtalDecor, propActions } from 'xtal-decor/xtal-decor.js';
 import { define } from 'xtal-element/XtalElement.js';
 import { route_change } from './un-curl.js';
 import { UnCurl } from './un-curl.js';
@@ -105,9 +105,26 @@ function matchQueryString(mappingRules, ctx) {
         }
     }
 }
+export const initHistoryState = ({ routeMappingRules, historyStateMapping, self }) => {
+    if (routeMappingRules === undefined || historyStateMapping === undefined)
+        return;
+    if (history.state !== null)
+        return;
+    const ctx = {
+        pinnedData: {},
+        state: {},
+        linkInfo: {
+            href: location.href,
+            title: document.head.title
+        }
+    };
+    parseURL(ctx, self);
+};
+export const navigatePropsActions = [...propActions, initHistoryState];
 export class NavigateTrait extends XtalDecor {
     constructor() {
         super(...arguments);
+        this.propActions = navigatePropsActions;
         this.upgrade = 'nav';
         this.capture = {
             [route_change]: ({ self }, e) => {

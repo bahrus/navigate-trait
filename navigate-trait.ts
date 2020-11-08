@@ -3,6 +3,7 @@ import {define, AttributeProps} from 'xtal-element/XtalElement.js';
 import {route_change} from './un-curl.js';
 import {RouteMappingRules, HistoryStateMappings, RouteMappingRule, RouteContext} from './types.d.js';
 import {UnCurl} from './un-curl.js';
+import {mergeDeep} from 'trans-render/mergeDeep.js';
 
 function parseLink(link: HTMLAnchorElement, self: NavigateTrait){
     if(self.routeMappingRules === undefined || self.historyStateMapping === undefined) return;
@@ -21,6 +22,8 @@ function parseLink(link: HTMLAnchorElement, self: NavigateTrait){
         }
     }
     buildHistoryState(ctx, self.historyStateMapping, ctx.state);
+    const mergedState = mergeDeep({...history.state}, ctx.state);
+    window.history.pushState(mergedState, link.innerText, link.href);
 }
 
 function buildHistoryState(ctx: RouteContext, hsm: HistoryStateMappings, state: any){

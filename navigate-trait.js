@@ -2,6 +2,7 @@ import { XtalDecor } from 'xtal-decor/xtal-decor.js';
 import { define } from 'xtal-element/XtalElement.js';
 import { route_change } from './un-curl.js';
 import { UnCurl } from './un-curl.js';
+import { mergeDeep } from 'trans-render/mergeDeep.js';
 function parseLink(link, self) {
     if (self.routeMappingRules === undefined || self.historyStateMapping === undefined)
         return;
@@ -19,6 +20,8 @@ function parseLink(link, self) {
         }
     }
     buildHistoryState(ctx, self.historyStateMapping, ctx.state);
+    const mergedState = mergeDeep({ ...history.state }, ctx.state);
+    window.history.pushState(mergedState, link.innerText, link.href);
 }
 function buildHistoryState(ctx, hsm, state) {
     for (const key in hsm) {

@@ -4,24 +4,40 @@ import {route_change} from './un-curl.js';
 import {RouteMappingRules, HistoryStateMappings, RouteMappingRule, RouteContext} from './types.d.js';
 import {UnCurl} from './un-curl.js';
 
-function parse(link: HTMLAnchorElement, self: NavigateTrait){
+function parseLink(link: HTMLAnchorElement, self: NavigateTrait){
     if(self.routeMappingRules === undefined || self.historyStateMapping === undefined) return;
 
     const splitHref = link.href.split('?')[0].split('/');
     const ctx: RouteContext = {
         link: link,
-        pinnedData: {}
+        pinnedData: {},
+        state: {}
     };
     for(const key in self.routeMappingRules){
         const iPos = splitHref.indexOf(key);
         const rules = self.routeMappingRules[key];
         if(iPos > -1){
-            match(splitHref.slice(iPos + 1), rules as RouteMappingRules, ctx);
+            matchRoute(splitHref.slice(iPos + 1), rules as RouteMappingRules, ctx);
+        }
+    }
+    buildHistoryState(ctx, self.historyStateMapping, ctx.state);
+}
+
+function buildHistoryState(ctx: RouteContext, hsm: HistoryStateMappings, state: any){
+    for(const key in hsm){
+        switch(typeof hsm[key]){
+            case 'symbol':
+                state[key] = ctx.pinnedData[hsm[key] as any as string];
+                break;
+            case 'object':
+                state[key] = {};
+                buildHistoryState(ctx, hsm[key] as HistoryStateMappings, state[key]);
+                break;
         }
     }
 }
 
-function match(splitHref: string[], mappingRules: RouteMappingRules, ctx: RouteContext){
+function matchRoute(splitHref: string[], mappingRules: RouteMappingRules, ctx: RouteContext){
     for(const key in mappingRules){
         
         switch(key){
@@ -42,7 +58,7 @@ function match(splitHref: string[], mappingRules: RouteMappingRules, ctx: RouteC
                     }
                     const subRule = rule[3] as RouteMappingRules;
                     if(splitHref.length > 1){
-                        match(splitHref.slice(1), subRule, ctx);
+                        matchRoute(splitHref.slice(1), subRule, ctx);
                     }
                     break;
                 }
@@ -54,7 +70,7 @@ function match(splitHref: string[], mappingRules: RouteMappingRules, ctx: RouteC
                 if(key === splitHref[0]){
                     const rules = mappingRules[key] as RouteMappingRules;
                     if(splitHref.length > 1){
-                        match(splitHref.slice(1), rules, ctx);
+                        matchRoute(splitHref.slice(1), rules, ctx);
                     }
                 }
                 
@@ -98,7 +114,7 @@ export class NavigateTrait extends XtalDecor {
         [route_change]: ({self}: XtalDecor, e: Event) => {
             //console.log(e);
             //console.log(self.id);
-            parse(e.target as HTMLAnchorElement, this);
+            parseLink(e.target as HTMLAnchorElement, this);
         }
     }
 

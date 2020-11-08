@@ -2,23 +2,38 @@ import { XtalDecor } from 'xtal-decor/xtal-decor.js';
 import { define } from 'xtal-element/XtalElement.js';
 import { route_change } from './un-curl.js';
 import { UnCurl } from './un-curl.js';
-function parse(link, self) {
+function parseLink(link, self) {
     if (self.routeMappingRules === undefined || self.historyStateMapping === undefined)
         return;
     const splitHref = link.href.split('?')[0].split('/');
     const ctx = {
         link: link,
-        pinnedData: {}
+        pinnedData: {},
+        state: {}
     };
     for (const key in self.routeMappingRules) {
         const iPos = splitHref.indexOf(key);
         const rules = self.routeMappingRules[key];
         if (iPos > -1) {
-            match(splitHref.slice(iPos + 1), rules, ctx);
+            matchRoute(splitHref.slice(iPos + 1), rules, ctx);
+        }
+    }
+    buildHistoryState(ctx, self.historyStateMapping, ctx.state);
+}
+function buildHistoryState(ctx, hsm, state) {
+    for (const key in hsm) {
+        switch (typeof hsm[key]) {
+            case 'symbol':
+                state[key] = ctx.pinnedData[hsm[key]];
+                break;
+            case 'object':
+                state[key] = {};
+                buildHistoryState(ctx, hsm[key], state[key]);
+                break;
         }
     }
 }
-function match(splitHref, mappingRules, ctx) {
+function matchRoute(splitHref, mappingRules, ctx) {
     for (const key in mappingRules) {
         switch (key) {
             case '*': {
@@ -39,7 +54,7 @@ function match(splitHref, mappingRules, ctx) {
                 }
                 const subRule = rule[3];
                 if (splitHref.length > 1) {
-                    match(splitHref.slice(1), subRule, ctx);
+                    matchRoute(splitHref.slice(1), subRule, ctx);
                 }
                 break;
             }
@@ -52,7 +67,7 @@ function match(splitHref, mappingRules, ctx) {
                 if (key === splitHref[0]) {
                     const rules = mappingRules[key];
                     if (splitHref.length > 1) {
-                        match(splitHref.slice(1), rules, ctx);
+                        matchRoute(splitHref.slice(1), rules, ctx);
                     }
                 }
         }
@@ -89,7 +104,7 @@ export class NavigateTrait extends XtalDecor {
             [route_change]: ({ self }, e) => {
                 //console.log(e);
                 //console.log(self.id);
-                parse(e.target, this);
+                parseLink(e.target, this);
             }
         };
         this.init = (h) => {

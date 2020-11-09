@@ -141,10 +141,11 @@ export class NavigateTrait extends XtalDecor {
     _lastTimeStamp: number = 0;
 
     capture = {
-        [route_change]: ({self}: XtalDecor, e: Event) => {
+        click: ({self}: XtalDecor, e: Event) => {
+            if((e!.target! as HTMLElement).localName !== 'a') return;
+            e.preventDefault();
             if(e.timeStamp === this._lastTimeStamp) return;
             this._lastTimeStamp = e.timeStamp;
-            console.log(e.timeStamp);
             parseLink(e.target as HTMLAnchorElement, this);
         }
     }

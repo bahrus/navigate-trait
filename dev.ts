@@ -33,26 +33,26 @@ export class DevTest extends NavigateTrait{
         }
     } as RouteMappingRules;
 
-    historyStateMapping = {
+    historyStateMappingx = {
         myContext:{
             mySubContext:{
-                accountInfo:{
+                accountInfo:[accountId, { //only create accountInfo if accountId has a value in context
                     id: accountId,
-                    statementInfo:{
+                    statementInfo: [statementId, { //only create statementInfo if statementId has a value in context
                         id: statementId
-                    },
-                    statementView:{
+                    }],
+                    statementView:[statementPageNo, {
                         pageNo: statementPageNo
-                    }
-                },
-                transactionsView:{
-                    from: transactionsFrom,
-                    to: transactionsTo
-                }
+                    }]
+                }],
+                transactionsView:[transactionsFrom, transactionsTo, { //only create transactionsView if either transactionsFrom or transactionsTo has value
+                    from: transactionsFrom, //only create from if transactionsFrom has a value
+                    to: transactionsTo //only create to if transactionsTo has a value
+                }]
             }
             
         }
-    } as HistoryStateMappings;
+    } as any;
 
 }
 define(DevTest);

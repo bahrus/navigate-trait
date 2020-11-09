@@ -17,7 +17,7 @@ export class UnCurl extends XtalDecor {
         this.init = (h) => { };
         this.actions = [];
         this.upgrade = 'a';
-        this.ifWantsToBe = 'a-navigation-link';
+        this.ifWantsToBe = 'a-nav-link';
     }
 }
 UnCurl.is = 'un-curl';

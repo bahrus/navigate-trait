@@ -157,7 +157,7 @@ export class NavigateTrait extends XtalDecor {
         
     };
     actions = [];
-    ifWantsToBe = 'a-client-side-router';
+    ifWantsToBe = 'a-router';
     
     routeMappingRules: RouteMappingRules | undefined;
     historyStateMapping: HistoryStateMappings | undefined;

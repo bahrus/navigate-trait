@@ -16,6 +16,6 @@ export class UnCurl extends XtalDecor {
     init = (h: HTMLElement) => {};
     actions = [];
     upgrade = 'a';
-    ifWantsToBe = 'a-navigation-link';
+    ifWantsToBe = 'a-nav-link';
 }
 define(UnCurl);

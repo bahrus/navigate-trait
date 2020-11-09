@@ -143,7 +143,7 @@ export class NavigateTrait extends XtalDecor {
             }
         };
         this.actions = [];
-        this.ifWantsToBe = 'a-client-side-router';
+        this.ifWantsToBe = 'a-router';
     }
 }
 NavigateTrait.is = 'navigate-trait';

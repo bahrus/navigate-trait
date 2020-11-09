@@ -33,7 +33,7 @@ export class DevTest extends NavigateTrait{
         }
     } as RouteMappingRules;
 
-    historyStateMappingx = {
+    historyStateMapping = {
         myContext:{
             mySubContext:{
                 accountInfo:[accountId, { //only create accountInfo if accountId has a value in context
@@ -52,7 +52,7 @@ export class DevTest extends NavigateTrait{
             }
             
         }
-    } as any;
+    } as HistoryStateMappings;
 
 }
 define(DevTest);

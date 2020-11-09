@@ -10,7 +10,11 @@ export type RouteMappingRule =
     | [pinnedVal: Symbol | undefined, dataConverter: dataConverter | undefined, test: dataTest | undefined, subMapRule: RouteMappingRules | undefined];
 export type RouteMappingRules = {[key: string]: RouteMappingRule | RouteMappingRules};
 
-export type HistoryStateMappings = {[key: string]: string | symbol | HistoryStateMappings};
+export type SymbolOrHistoryStateMappings = symbol | HistoryStateMappings;
+
+export type ConditionalHistoryStateMapping = SymbolOrHistoryStateMappings[];
+
+export type HistoryStateMappings = {[key: string]: string | symbol | HistoryStateMappings | ConditionalHistoryStateMapping};
 
 export interface RouteContext{
     pinnedData: any;

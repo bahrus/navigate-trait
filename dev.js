@@ -26,7 +26,7 @@ export class DevTest extends NavigateTrait {
                     }],
             }
         };
-        this.historyStateMappingx = {
+        this.historyStateMapping = {
             myContext: {
                 mySubContext: {
                     accountInfo: [accountId, {

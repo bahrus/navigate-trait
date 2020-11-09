@@ -1,5 +1,6 @@
 import { XtalDecor, propActions } from 'xtal-decor/xtal-decor.js';
 import { define } from 'xtal-element/XtalElement.js';
+import { route_change } from './un-curl.js';
 import { UnCurl } from './un-curl.js';
 import { mergeDeep } from 'trans-render/mergeDeep.js';
 function parseLink(link, self) {
@@ -127,13 +128,11 @@ export class NavigateTrait extends XtalDecor {
         this.upgrade = 'nav';
         this._lastTimeStamp = 0;
         this.capture = {
-            click: ({ self }, e) => {
-                if (e.target.localName !== 'a')
-                    return;
-                e.preventDefault();
+            [route_change]: ({ self }, e) => {
                 if (e.timeStamp === this._lastTimeStamp)
                     return;
                 this._lastTimeStamp = e.timeStamp;
+                console.log(e.timeStamp);
                 parseLink(e.target, this);
             }
         };

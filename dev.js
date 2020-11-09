@@ -1,4 +1,4 @@
-import { NavigateTrait } from '../navigate-trait.js';
+import { NavigateTrait } from './navigate-trait.js';
 import { define } from 'xtal-element/XtalElement.js';
 const accountId = Symbol('accountId');
 const statementId = Symbol('statementId');

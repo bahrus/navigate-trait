@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "node node_modules/xtal-test/serve.js",
-    "start": "web-dev-server --app-index demo/dev.html --node-resolve --watch --open"
+    "start": "web-dev-server --node-resolve --app-index demo/dev.html  --watch --open"
   },
   "repository": {
     "type": "git",

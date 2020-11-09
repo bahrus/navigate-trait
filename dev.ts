@@ -1,5 +1,5 @@
-import {NavigateTrait} from '../navigate-trait.js';
-import {RouteMappingRules, HistoryStateMappings} from '../types.d.js';
+import {NavigateTrait} from './navigate-trait.js';
+import {RouteMappingRules, HistoryStateMappings} from './types.js';
 import {define} from 'xtal-element/XtalElement.js';
 
 const accountId = Symbol('accountId');

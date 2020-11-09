@@ -14,53 +14,7 @@
 </head>
 <body>
     
-    <dev-test>
-        <!-- <script nomodule="ish">
-
-
-            const routeMappingRules = {
-                myAccounts:{
-                    '*': [accountId, parseInt, x => x % 11 === 0, {
-                        statements:{
-                            '*' : [statementId,,,{
-                                '?': {
-                                    page: [statementPageNo, parseInt]
-                                }
-                            }]
-                        },
-                        transactions:{
-                            '?':{
-                                from: [transactionsFrom, parseDate],
-                                to: [transactionsTo, parseDate]
-                            },
-                        }
-                    }],
-
-                }
-            }
-            const historyStateMapping = {
-                myContext:{
-                    mySubContext:{
-                        accountInfo:{
-                            id: [accountId],
-                            statementInfo:{
-                                id: [statementId]
-                            },
-                            statementView:{
-                                pageNo: [statementPageNo]
-                            }
-                        },
-                        transactionsView:{
-                            from: [transactionsFrom],
-                            to: [transactionsTo]
-                        }
-                    }
-                    
-                }
-            }
-            Object.assign(selfish.parentElement, {routeMappingRules, historyUpdateMapping});
-        </script> -->
-    </dev-test>
+    <dev-test></dev-test>
 
     <nav id=test be-a-client-side-router>
         <a  be-a-navigation-link href="myAccounts/14394402/statements/201904?page=1" slot="link">
@@ -70,10 +24,10 @@
             Transactions for 10/1/2020 - 11/19/2020
         </a>
     </nav>
-    <script type=module>
-        //import('../un-curl.js');
-        import('./dev.js');
-    </script>
+    <!-- <script type=module>
+        import('../dev.js');
+    </script> -->
+    <script type=module src="/dev.js"></script>
     <!-- <script>
         test.addEventListener('route-change', e => {
             console.log(e);

@@ -126,10 +126,13 @@ export class NavigateTrait extends XtalDecor {
         super(...arguments);
         this.propActions = navigatePropsActions;
         this.upgrade = 'nav';
+        this._lastTimeStamp = 0;
         this.capture = {
             [route_change]: ({ self }, e) => {
-                //console.log(e);
-                //console.log(self.id);
+                if (e.timeStamp === this._lastTimeStamp)
+                    return;
+                this._lastTimeStamp = e.timeStamp;
+                console.log(e.timeStamp);
                 parseLink(e.target, this);
             }
         };

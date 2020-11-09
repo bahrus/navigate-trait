@@ -34,7 +34,7 @@ export class DevTest extends NavigateTrait{
     } as RouteMappingRules;
 
     historyStateMapping = {
-        myContext:{
+        myContext:[accountId, statementId, statementPageNo, transactionsFrom, transactionsTo,{ // only create this section if at least value from accountId, statementId, statementPageNo, transactionsFrom, transactionsTo is found in context
             mySubContext:{
                 accountInfo:[accountId, { //only create accountInfo if accountId has a value in context
                     id: accountId,
@@ -51,7 +51,7 @@ export class DevTest extends NavigateTrait{
                 }]
             }
             
-        }
+        }]
     } as HistoryStateMappings;
 
 }

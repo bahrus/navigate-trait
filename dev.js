@@ -27,23 +27,23 @@ export class DevTest extends NavigateTrait {
             }
         };
         this.historyStateMapping = {
-            myContext: {
-                mySubContext: {
-                    accountInfo: [accountId, {
-                            id: accountId,
-                            statementInfo: [statementId, {
-                                    id: statementId
-                                }],
-                            statementView: [statementPageNo, {
-                                    pageNo: statementPageNo
-                                }]
-                        }],
-                    transactionsView: [transactionsFrom, transactionsTo, {
-                            from: transactionsFrom,
-                            to: transactionsTo //only create to if transactionsTo has a value
-                        }]
-                }
-            }
+            myContext: [accountId, statementId, statementPageNo, transactionsFrom, transactionsTo, {
+                    mySubContext: {
+                        accountInfo: [accountId, {
+                                id: accountId,
+                                statementInfo: [statementId, {
+                                        id: statementId
+                                    }],
+                                statementView: [statementPageNo, {
+                                        pageNo: statementPageNo
+                                    }]
+                            }],
+                        transactionsView: [transactionsFrom, transactionsTo, {
+                                from: transactionsFrom,
+                                to: transactionsTo //only create to if transactionsTo has a value
+                            }]
+                    }
+                }]
         };
     }
 }

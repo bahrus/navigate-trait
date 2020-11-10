@@ -2,7 +2,6 @@ import { XtalDecor, propActions } from 'xtal-decor/xtal-decor.js';
 import { define } from 'xtal-element/XtalElement.js';
 import { route_change } from './un-curl.js';
 import { UnCurl } from './un-curl.js';
-import { mergeDeep } from 'trans-render/mergeDeep.js';
 function parseLink(link, self) {
     const ctx = {
         pinnedData: {},
@@ -26,18 +25,45 @@ function parseURL(ctx, self) {
         }
     }
     buildHistoryState(ctx, self.historyStateMapping, ctx.state);
-    const mergedState = mergeDeep({ ...history.state }, ctx.state);
+    const mergedState = Object.assign({ ...history.state }, ctx.state);
     window.history.pushState(mergedState, ctx.linkInfo.title, ctx.linkInfo.href);
 }
 function buildHistoryState(ctx, hsm, state) {
     for (const key in hsm) {
-        switch (typeof hsm[key]) {
+        const rhs = hsm[key];
+        switch (typeof rhs) {
             case 'symbol':
-                state[key] = ctx.pinnedData[hsm[key]];
+                const val = ctx.pinnedData[hsm[key]];
+                if (val === undefined) {
+                    delete state[key];
+                }
+                else {
+                    state[key] = val;
+                }
                 break;
             case 'object':
-                state[key] = {};
-                buildHistoryState(ctx, hsm[key], state[key]);
+                if (Array.isArray(rhs)) {
+                    const len = rhs.length;
+                    let foundValidKey = false;
+                    for (let i = 0, ii = len - 1; i < ii; i++) {
+                        const sym = rhs[i];
+                        if (ctx.pinnedData[sym] !== undefined) {
+                            foundValidKey = true;
+                            break;
+                        }
+                    }
+                    if (foundValidKey) {
+                        state[key] = {};
+                        buildHistoryState(ctx, rhs[len - 1], state[key]);
+                    }
+                    else {
+                        delete state[key];
+                    }
+                }
+                else {
+                    state[key] = {};
+                    buildHistoryState(ctx, rhs, state[key]);
+                }
                 break;
         }
     }

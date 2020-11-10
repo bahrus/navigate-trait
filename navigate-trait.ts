@@ -3,7 +3,6 @@ import {define, AttributeProps} from 'xtal-element/XtalElement.js';
 import {route_change} from './un-curl.js';
 import {RouteMappingRules, HistoryStateMappings, RouteMappingRule, RouteContext} from './types.d.js';
 import {UnCurl} from './un-curl.js';
-import {mergeDeep} from 'trans-render/mergeDeep.js';
 
 function parseLink(link: HTMLAnchorElement, self: NavigateTrait){
     const ctx: RouteContext = {
@@ -29,19 +28,46 @@ function parseURL(ctx: RouteContext, self:NavigateTrait){
         }
     }
     buildHistoryState(ctx, self.historyStateMapping, ctx.state);
-    const mergedState = mergeDeep({...history.state}, ctx.state);
+    const mergedState = Object.assign({...history.state}, ctx.state);
     window.history.pushState(mergedState, ctx.linkInfo.title, ctx.linkInfo.href);
 }
 
 function buildHistoryState(ctx: RouteContext, hsm: HistoryStateMappings, state: any){
     for(const key in hsm){
-        switch(typeof hsm[key]){
+        const rhs = hsm[key]
+        switch(typeof rhs){
             case 'symbol':
-                state[key] = ctx.pinnedData[hsm[key] as any as string];
+                const val = ctx.pinnedData[hsm[key] as any as string];
+                if(val === undefined) {
+                    delete state[key];
+                }else{
+                    state[key] = val;
+                }
                 break;
             case 'object':
-                state[key] = {};
-                buildHistoryState(ctx, hsm[key] as HistoryStateMappings, state[key]);
+                
+                if(Array.isArray(rhs)){
+                    const len = rhs.length;
+                    let foundValidKey = false;
+                    for(let i = 0, ii = len - 1; i < ii; i++){
+                        const sym = rhs[i] as symbol;
+                        if(ctx.pinnedData[sym as any as string] !== undefined){
+                            foundValidKey = true;
+                            break;
+                        }
+                    }
+                    if(foundValidKey){
+                        state[key] = {};
+                        buildHistoryState(ctx, rhs[len - 1] as HistoryStateMappings, state[key]);
+                    }else{
+                        delete state[key];
+                    }
+                    
+                }else{
+                    state[key] = {};
+                    buildHistoryState(ctx, rhs as HistoryStateMappings, state[key]);
+                }
+                
                 break;
         }
     }

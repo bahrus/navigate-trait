@@ -105,7 +105,7 @@ function matchRoute(splitHref: string[], mappingRules: RouteMappingRules, ctx: R
             default:
                 if(key === splitHref[0]){
                     const rules = mappingRules[key] as RouteMappingRules;
-                    if(splitHref.length > 1){
+                    if(splitHref.length > 0){
                         matchRoute(splitHref.slice(1), rules, ctx);
                     }
                 }

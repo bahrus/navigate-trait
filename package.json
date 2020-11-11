@@ -1,9 +1,9 @@
 {
   "name": "navigate-trait",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "navigate-trait.js",
-  "module":"navigate-trait.js",
+  "module": "navigate-trait.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "node node_modules/xtal-test/serve.js",

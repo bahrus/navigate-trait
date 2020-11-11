@@ -23,7 +23,7 @@ In order to "opt-in", the nav and anchor tags should have the (customizable) att
 ```
 
 In contrast to more traditional routing link solutions, perhaps, navigate-trait places great emphasis on fine tuning how to parse the address bar, and updating history.state
-with typed keys found in the address bar.  The mapping looks like this:
+with typed keys found in the address bar.  
 
 The mapping rules are best demonstrated [by example](https://github.com/bahrus/navigate-trait/blob/baseline/dev.ts#L14), which maps the url's shown above into history.state (and opens the url's via client-side routing.)
 

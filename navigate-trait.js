@@ -168,7 +168,6 @@ export class NavigateTrait extends XtalDecor {
                 if (e.timeStamp === this._lastTimeStamp)
                     return;
                 this._lastTimeStamp = e.timeStamp;
-                console.log(e.timeStamp);
                 parseLink(e.target, this);
             }
         };

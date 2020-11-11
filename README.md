@@ -1,8 +1,17 @@
 # navigate-trait
 
-Inspired by [How To Extend a Native HTML Element](https://itnext.io/how-to-extend-a-native-html-element-1d4674e09c22).
+<a href="https://nodei.co/npm/navigate-trait/"><img src="https://nodei.co/npm/navigate-trait.png"></a>
 
-Enhance the hyperlink and nav native elements to support local client-side routing.
+<img src="https://badgen.net/bundlephobia/minzip/navigate-trait">
+
+navigate-trait enhances the nav and a (anchor) tag, in order to support client side routing.
+
+It is inspired by the article [How To Extend a Native HTML Element](https://itnext.io/how-to-extend-a-native-html-element-1d4674e09c22).
+
+In contrast to more traditional routing link solutions, perhaps, navigate-trait places great emphasis on fine tuning how to parse the address bar, and updating history.state
+with typed keys found in the address bar.  The mapping looks like this:
+
+The mapping rules are best demonstrated [by example](https://github.com/bahrus/navigate-trait/blob/baseline/dev.ts#L14).
 
 Syntax
 

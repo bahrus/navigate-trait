@@ -17,16 +17,26 @@ function parseURL(ctx, self) {
     if (self.routeMappingRules === undefined || self.historyStateMapping === undefined)
         return;
     const splitHref = ctx.linkInfo.href.split('?')[0].split('/');
+    let foundKey = undefined;
     for (const key in self.routeMappingRules) {
         const iPos = splitHref.indexOf(key);
         const rules = self.routeMappingRules[key];
         if (iPos > -1) {
+            foundKey = key;
             matchRoute(splitHref.slice(iPos + 1), rules, ctx);
+            //break;
         }
     }
     buildHistoryState(ctx, self.historyStateMapping, ctx.state);
     const mergedState = Object.assign({ ...history.state }, ctx.state);
-    window.history.pushState(mergedState, ctx.linkInfo.title, ctx.linkInfo.href);
+    let newUrl = ctx.linkInfo.href;
+    if (foundKey !== undefined && !newUrl.includes('//')) {
+        const iPos = location.href.indexOf('/' + foundKey + '/');
+        if (iPos > -1) {
+            newUrl = location.href.substr(0, iPos + 1) + newUrl;
+        }
+    }
+    window.history.pushState(mergedState, ctx.linkInfo.title, newUrl);
 }
 function buildHistoryState(ctx, hsm, state) {
     for (const key in hsm) {

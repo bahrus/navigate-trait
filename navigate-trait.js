@@ -7,7 +7,7 @@ function parseLink(link, self) {
         pinnedData: {},
         state: {},
         linkInfo: {
-            href: link.href,
+            href: link.getAttribute('href'),
             title: link.innerText
         }
     };

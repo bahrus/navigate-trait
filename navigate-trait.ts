@@ -9,7 +9,7 @@ function parseLink(link: HTMLAnchorElement, self: NavigateTrait){
         pinnedData: {},
         state: {},
         linkInfo:{
-            href: link.href,
+            href: link.getAttribute('href')!,
             title: link.innerText
         }
     };

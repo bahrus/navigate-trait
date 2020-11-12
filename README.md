@@ -27,5 +27,7 @@ with typed keys found in the address bar.
 
 The mapping rules are best demonstrated [by example](https://github.com/bahrus/navigate-trait/blob/baseline/dev.ts#L14), which maps the url's shown above into history.state (and opens the url's via client-side routing.)
 
+##  iFrame you [TODO]
 
+The hyperlink tag supports a target attribute, which causes an iframe to load the content of the url.  However, this doesn't update the address bar, so it is difficult to bookmark or email this state.
 

@@ -14,12 +14,8 @@
     "url": "git+https://github.com/bahrus/navigate-trait.git"
   },
   "dependencies": {
-    "xtal-decor": "0.0.19",
-    "xtal-element": "0.0.312"
-  },
-  "devDependencies": {
-    "xtal-test": "0.0.48",
-    "@web/dev-server": "0.0.19"
+    "be-a-nav-link": "0.0.2",
+    "xtal-decor": "0.0.19"
   },
   "author": "",
   "license": "MIT",

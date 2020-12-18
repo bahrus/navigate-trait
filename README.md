@@ -6,7 +6,7 @@
 
 navigate-trait enhances the "nav" and "a" (anchor) tag, in order to support client-side routing.
 
-navigate-trait is an abstract class, allowing for different approaches / libraries for parsing the url, and/or stringifying an object to the url [TODO].
+navigate-trait is an abstract class (if using Typescript), allowing for different approaches / libraries for parsing the url, and/or stringifying an object to the url [TODO].
 
 It is inspired by the article [How To Extend a Native HTML Element](https://itnext.io/how-to-extend-a-native-html-element-1d4674e09c22).
 
@@ -23,6 +23,8 @@ In order to "opt-in", the nav and anchor tags should have the (customizable) att
     </a>
 </nav>
 ```
+
+Another requirement: The hypererlinks inside the nav html need to fire event "route-changed".  The web component 
 
 In contrast to more traditional routing link solutions, perhaps, navigate-trait places great emphasis on fine tuning how to parse the address bar, and updating history.state
 with typed keys found in the address bar.  

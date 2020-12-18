@@ -3,16 +3,5 @@
     "files.exclude": {
         "**/*.js": {"when": "$(basename).ts"},
         "**/*.js.map" : true
-    },
-    "json.schemas": [
-        {
-            "fileMatch": ["/html.json"],
-            "url": "https://raw.githubusercontent.com/Microsoft/vscode-html-languageservice/master/docs/customData.schema.json"
-        },
-        {
-            "fileMatch": ["/css.json"],
-            "url": "https://raw.githubusercontent.com/Microsoft/vscode-css-languageservice/master/docs/customData.schema.json"
-        }
-    ],
-    "html.experimental.customData": ["./html.json"],
+    }
 }

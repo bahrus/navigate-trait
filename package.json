@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "xtal-test": "0.0.48",
-    "@web/dev-server": "0.0.16"
+    "@web/dev-server": "0.0.19"
   },
   "author": "",
   "license": "MIT",

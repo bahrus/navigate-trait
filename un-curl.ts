@@ -1,4 +1,4 @@
-import {XtalDecor, PropAction} from 'xtal-decor/xtal-decor.js';
+import {XtalDecor} from 'xtal-decor/xtal-decor.js';
 import {define} from 'xtal-element/XtalElement.js';
 export const route_change = 'route-change';
 export class UnCurl extends XtalDecor {

@@ -16,6 +16,9 @@ export class NavigateTrait extends XtalDecor {
         this.init = (h) => {
             if (this.querySelector(BeANavLink.is) === null) {
                 const banl = document.createElement(BeANavLink.is);
+                if (this.hasAttribute('a-trait-attr')) {
+                    banl.ifWantsToBe = 'a-trait-attr';
+                }
                 this.appendChild(banl);
             }
         };

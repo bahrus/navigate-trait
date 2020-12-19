@@ -13,7 +13,7 @@ export class NavigateTrait extends XtalDecor {
                 this._lastTimeStamp = e.timeStamp;
                 const anchor = e.target;
                 if (anchor.href) {
-                    this.parseURL(anchor.href);
+                    this.parseURL(anchor.href, anchor);
                 }
             }
         };

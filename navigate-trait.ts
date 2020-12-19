@@ -14,13 +14,13 @@ export abstract class NavigateTrait extends XtalDecor {
             this._lastTimeStamp = e.timeStamp;
             const anchor = e.target as HTMLAnchorElement;
             if(anchor.href){
-                this.parseURL(anchor.href);
+                this.parseURL(anchor.href, anchor);
             }
             
         }
     }
 
-    abstract parseURL(url: string): void;
+    abstract parseURL(url: string, link?: HTMLAnchorElement): void;
 
     init = (h: HTMLElement) => {
         if(this.querySelector(BeANavLink.is) === null){

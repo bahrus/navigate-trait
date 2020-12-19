@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "be-a-nav-link": "0.0.2",
-    "xtal-decor": "0.0.19"
+    "xtal-decor": "0.0.22"
   },
   "author": "",
   "license": "MIT",

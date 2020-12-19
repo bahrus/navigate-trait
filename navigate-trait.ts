@@ -1,6 +1,7 @@
 import {XtalDecor} from 'xtal-decor/xtal-decor.js';
 import {route_changed, BeANavLink} from 'be-a-nav-link/be-a-nav-link.js';
 
+let initiatedHistory = false;
 
 export abstract class NavigateTrait extends XtalDecor {
     upgrade = 'nav';
@@ -11,11 +12,15 @@ export abstract class NavigateTrait extends XtalDecor {
         [route_changed]: ({self}: XtalDecor, e: Event) => {
             if(e.timeStamp === this._lastTimeStamp) return;
             this._lastTimeStamp = e.timeStamp;
-            this.parseLink(e.target as HTMLAnchorElement);
+            const anchor = e.target as HTMLAnchorElement;
+            if(anchor.href){
+                this.parseURL(anchor.href);
+            }
+            
         }
     }
 
-    abstract parseLink(anchor: HTMLAnchorElement): void;
+    abstract parseURL(url: string): void;
 
     init = (h: HTMLElement) => {
         if(this.querySelector(BeANavLink.is) === null){
@@ -25,7 +30,12 @@ export abstract class NavigateTrait extends XtalDecor {
             }
             this.appendChild(banl);
         }
-        
+        if(!initiatedHistory){
+            if(history.state == null){
+                this.parseURL(location.href);
+            }
+            initiatedHistory = true;
+        }
     };
     actions = [];
     ifWantsToBe = 'a-router';

@@ -1,5 +1,6 @@
 import { XtalDecor } from 'xtal-decor/xtal-decor.js';
 import { route_changed, BeANavLink } from 'be-a-nav-link/be-a-nav-link.js';
+let initiatedHistory = false;
 export class NavigateTrait extends XtalDecor {
     constructor() {
         super(...arguments);
@@ -10,7 +11,10 @@ export class NavigateTrait extends XtalDecor {
                 if (e.timeStamp === this._lastTimeStamp)
                     return;
                 this._lastTimeStamp = e.timeStamp;
-                this.parseLink(e.target);
+                const anchor = e.target;
+                if (anchor.href) {
+                    this.parseURL(anchor.href);
+                }
             }
         };
         this.init = (h) => {
@@ -20,6 +24,12 @@ export class NavigateTrait extends XtalDecor {
                     banl.ifWantsToBe = 'a-trait-attr';
                 }
                 this.appendChild(banl);
+            }
+            if (!initiatedHistory) {
+                if (history.state == null) {
+                    this.parseURL(location.href);
+                }
+                initiatedHistory = true;
             }
         };
         this.actions = [];
